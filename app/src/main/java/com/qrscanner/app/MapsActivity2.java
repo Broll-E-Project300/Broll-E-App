@@ -1,7 +1,5 @@
 package com.qrscanner.app;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -13,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,20 +20,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.qrscanner.app.databinding.ActivityMapBinding;
+import com.qrscanner.app.databinding.ActivityMaps2Binding;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ActivityMapBinding binding;
+    private ActivityMaps2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMapBinding.inflate(getLayoutInflater());
+        binding = ActivityMaps2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -80,7 +76,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .snippet("Umbrellas:" + umbrellas)
                     .icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_baseline_beach_access_green)));
         }
-
 
     }
 

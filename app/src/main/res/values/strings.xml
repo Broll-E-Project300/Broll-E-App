@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">QRScanner</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_maps2">MapsActivity2</string>
 </resources>

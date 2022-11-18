@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -31,16 +33,9 @@
             android:value="YOUR_API_KEY" />
 
         <activity
-            android:name=".MapActivity"
+            android:name=".MapsActivity2"
             android:exported="false"
-            android:label="@string/title_activity_map" />
-        <activity
-            android:name=".MapsActivity"
-            android:exported="false">
-            <meta-data
-                android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version" />
-        </activity>
+            android:label="@string/title_activity_maps2" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
