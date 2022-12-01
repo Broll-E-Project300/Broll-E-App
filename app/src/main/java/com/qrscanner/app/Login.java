@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +34,7 @@ public class Login extends AppCompatActivity {
 
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.password);
-        mLoginBtn = findViewById(R.id.loginBtn);
+        mLoginBtn = findViewById(R.id.MainloginBtn);
         mRegisterBtn = findViewById(R.id.registerAccount);
         firebaseAuth = FirebaseAuth.getInstance();
         mProgress = findViewById(R.id.progressBar);
@@ -69,6 +68,8 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
+                validate(mEmail.getText().toString().trim(), mPassword.getText().toString().trim());
+
 
             }
         });
@@ -79,7 +80,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    startActivity(new Intent(getApplicationContext(), MapsActivity2.class));
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                 }
                 else{

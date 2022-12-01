@@ -53,7 +53,7 @@
         app:layout_constraintVertical_bias="0.060000002" />
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/MainloginBtn"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintTop_toBottomOf="@+id/MainloginBtn"
         app:layout_constraintVertical_bias="0.24000001" />
 
     <ProgressBar
