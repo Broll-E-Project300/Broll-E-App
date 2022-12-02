@@ -8,26 +8,42 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
-public class MainActivity extends AppCompatActivity {
-    Button buttonScan, buttonMap;
+public class InformationActivity extends AppCompatActivity {
+    TextView tvLocation, tvInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        buttonScan = findViewById(R.id.buttonScan);
-        buttonMap = findViewById(R.id.buttonMap);
-        buttonScan.setOnClickListener(view -> {
-            scanCode();
-        });
+        setContentView(R.layout.activity_information);
+        tvLocation = findViewById(R.id.tvLocation);
+        tvInformation = findViewById(R.id.tvInformation);
+        //   tvUmbrellas = findViewById(R.id.tvUmbrellas);
+        //   tvUmbAvailable = findViewById(R.id.tvUmbAvailable);
+
+        String LocationName = getIntent().getStringExtra("Location");
+        tvLocation.setText(LocationName);
+
+        String LocationInfo = getIntent().getStringExtra("Information");
+        tvInformation.setText(LocationInfo);
+
+        //   String Umbrellas = getIntent().getStringExtra("Umbrellas");
+        //  tvUmbrellas.setText(Umbrellas);
+
+        //  String Spaces = getIntent().getStringExtra("Spaces");
+        //  tvUmbAvailable.setText(Spaces);
     }
 
-    private void scanCode()
+    public void onClickMap(View view) {
+        Intent intent = new Intent(InformationActivity.this, MapsActivity2.class);
+        startActivity(intent);
+    }
+
+    public void onClickScan(View view)
     {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volume up to turn flash on");
@@ -40,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result ->{
         if(result.getContents() != null)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
             builder.setTitle("Result");
             builder.setMessage(result.getContents());
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -52,10 +68,4 @@ public class MainActivity extends AppCompatActivity {
             }).show();
         }
     });
-
-    public void openMap(View view)
-    {
-        Intent intent = new Intent(this, MapsActivity2.class);
-        startActivity(intent);
-    }
 }
