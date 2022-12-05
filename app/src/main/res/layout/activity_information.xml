@@ -88,7 +88,7 @@
         android:layout_marginStart="53dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="54dp"
-        android:text="Price: €10 for 24 hours"
+        android:text="Price: €1 for 24 hours"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
