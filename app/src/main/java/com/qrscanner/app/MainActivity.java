@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         signOut = findViewById(R.id.signOutBtn);
         firebaseAuth = FirebaseAuth.getInstance();
 
+
         //Check if user is logged in
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user == null){
