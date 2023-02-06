@@ -24,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         buttonScan = findViewById(R.id.buttonScan);
         buttonMap = findViewById(R.id.buttonMap);
+        buttonMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MapsActivity2.class));
+            }
+        });
         buttonScan.setOnClickListener(view -> {
             scanCode();
         });
@@ -76,10 +82,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openCreditCard(){
         Intent intent = new Intent(this, CreditCard.class);
-        startActivity(intent);
-    }
-    public void openMap(){
-        Intent intent = new Intent(this, Map.class);
         startActivity(intent);
     }
 }
