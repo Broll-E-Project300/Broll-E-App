@@ -13,17 +13,33 @@ import android.widget.Button;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
     Button buttonScan, buttonMap;
-
+    private Button buttonPlans, buttonCard, button3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         buttonScan = findViewById(R.id.buttonScan);
-        buttonMap = findViewById(R.id.buttonMap);
         buttonScan.setOnClickListener(view -> {
             scanCode();
+        });
+        buttonPlans = (Button) findViewById(R.id.btnPlans);
+        buttonPlans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openPlansActivity();
+            }
+        });
+
+        buttonCard = (Button) findViewById(R.id.btnCreditCard);
+        buttonCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCreditCard();
+            }
         });
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +47,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), MapsActivity2.class));
             }
         });
+
+        button3 = (Button) findViewById(R.id.btnMap);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMap();
+            }
+        });
+
     }
 
     private void scanCode()
@@ -59,9 +84,17 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-/*    public void openMap(View view)
-    {
-        Intent intent = new Intent(this, MapsActivity2.class);
+
+    public void openPlansActivity(){
+        Intent intent = new Intent(this,Plans.class);
         startActivity(intent);
-    }*/
+    }
+    public void openCreditCard(){
+        Intent intent = new Intent(this, CreditCard.class);
+        startActivity(intent);
+    }
+    public void openMap(){
+        Intent intent = new Intent(this, Map.class);
+        startActivity(intent);
+    }
 }
