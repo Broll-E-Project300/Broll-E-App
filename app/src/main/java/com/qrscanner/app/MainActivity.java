@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
         buttonScan.setOnClickListener(view -> {
             scanCode();
         });
+        buttonMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MapsActivity2.class));
+            }
+        });
     }
 
     private void scanCode()
@@ -53,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-    public void openMap(View view)
+/*    public void openMap(View view)
     {
         Intent intent = new Intent(this, MapsActivity2.class);
         startActivity(intent);
-    }
+    }*/
 }
