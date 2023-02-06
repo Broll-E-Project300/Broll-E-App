@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     Button buttonScan;
-    private Button button, button2, button3;
+    private Button buttonPlans, buttonCard, button3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,16 +26,16 @@ public class MainActivity extends AppCompatActivity {
         buttonScan.setOnClickListener(view -> {
             scanCode();
         });
-        button = (Button) findViewById(R.id.btnPlans);
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonPlans = (Button) findViewById(R.id.btnPlans);
+        buttonPlans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openPlansActivity();
             }
         });
 
-        button2 = (Button) findViewById(R.id.btnCreditCard);
-        button2.setOnClickListener(new View.OnClickListener() {
+        buttonCard = (Button) findViewById(R.id.btnCreditCard);
+        buttonCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openCreditCard();
