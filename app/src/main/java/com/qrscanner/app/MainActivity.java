@@ -18,8 +18,7 @@ import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonScan;
-    Button mapButton, signOut;
+    Button signOut;
     TextView signInMain, createAccountMain;
     FirebaseAuth firebaseAuth;
     @Override
@@ -27,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mapButton = findViewById(R.id.mapBtn);
-        buttonScan = findViewById(R.id.buttonScan);
         signInMain = findViewById(R.id.MainloginBtn);
         createAccountMain = findViewById(R.id.MainregisterBtn);
         signOut = findViewById(R.id.signOutBtn);
@@ -47,16 +44,6 @@ public class MainActivity extends AppCompatActivity {
             createAccountMain.setVisibility(View.GONE);
             signOut.setVisibility(View.VISIBLE);
         }
-
-        buttonScan.setOnClickListener(view -> {
-            scanCode();
-        });
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MapsActivity2.class));
-            }
-        });
         signInMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,33 +66,5 @@ public class MainActivity extends AppCompatActivity {
                 createAccountMain.setVisibility(View.VISIBLE);
             }
         });
-
-
     }
-
-    private void scanCode()
-    {
-        ScanOptions options = new ScanOptions();
-        options.setPrompt("Volume up to turn flash on");
-        options.setBeepEnabled(true);
-        options.setOrientationLocked(true);
-        options.setCaptureActivity(CaptureAct.class);
-        barLauncher.launch(options);
-    }
-
-    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result ->{
-        if(result.getContents() != null)
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Result");
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-
-                }
-            }).show();
-        }
-    });
 }
