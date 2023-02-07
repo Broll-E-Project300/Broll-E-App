@@ -15,6 +15,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintVertical_bias="0.39"
         app:srcCompat="@drawable/logobrolle" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -57,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.62106705" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <Button
         android:id="@+id/btnPlans"
@@ -69,7 +70,7 @@
         app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:layout_constraintVertical_bias="0.512" />
+        app:layout_constraintVertical_bias="0.76" />
 
     <Button
         android:id="@+id/btnCreditCard"
@@ -79,7 +80,9 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline28"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintVertical_bias="0.76
+" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline27"
@@ -103,61 +106,60 @@
         android:text="Scan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.27"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        app:layout_constraintVertical_bias="0.55" />
 
     <Button
         android:id="@+id/buttonMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="123dp"
-        android:layout_marginEnd="164dp"
-        android:layout_marginBottom="148dp"
-        android:onClick="openMap"
         android:text="Map"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonScan"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55
+" />
 
     <TextView
         android:id="@+id/MainloginBtn"
         android:layout_width="85dp"
         android:layout_height="25dp"
         android:text="Sign In"
-        android:textColor="#1E51E9"
-        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textSize="21sp"
         android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.80" />
 
     <TextView
         android:id="@+id/MainregisterBtn"
-        android:layout_width="153dp"
-        android:layout_height="23dp"
+        android:layout_width="194dp"
+        android:layout_height="24dp"
         android:text="Don't have an account?"
-        android:textColor="#3F51B5"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MainloginBtn"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <Button
         android:id="@+id/signOutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="364dp"
-        android:text="Scan"
+        android:backgroundTint="#D30A0A"
+        android:text="SignOut"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
