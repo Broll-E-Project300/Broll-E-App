@@ -50,6 +50,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Register.class));
+                finish();
             }
         });
 
@@ -81,6 +82,7 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
 
                 }
                 else{

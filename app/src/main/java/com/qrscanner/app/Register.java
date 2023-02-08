@@ -71,6 +71,7 @@ public class Register extends AppCompatActivity {
                         if (task.isSuccessful()){
                             Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Register.this, MainActivity.class));
+                            finish();
                         }else {
                             Toast.makeText(Register.this, "Registration Failed "+task.getException(), Toast.LENGTH_SHORT).show();
                         }
@@ -82,6 +83,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Login.class));
+                finish();
             }
         });
     }
