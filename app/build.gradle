@@ -46,4 +46,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.braintreepayments:card-form:5.4.0'
 
+    implementation 'com.stripe:stripe-android:20.19.2'
+
+
+
+
 }
