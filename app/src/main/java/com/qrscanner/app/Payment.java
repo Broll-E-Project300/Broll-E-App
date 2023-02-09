@@ -12,3 +12,6 @@ public class Payment extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
     }
 }
+
+
+

@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.braintreepayments:card-form:5.4.0'
 
     implementation 'com.stripe:stripe-android:20.19.2'
+    implementation 'com.android.volley:volley:1.2.1'
 
 
 
