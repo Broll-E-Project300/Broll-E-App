@@ -7,14 +7,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.provider.Settings.Secure;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
     Button buttonScan, buttonMap;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         buttonScan.setOnClickListener(view -> {
             scanCode();
         });
+
+
+
     }
 
     private void scanCode()
@@ -44,9 +60,34 @@ public class MainActivity extends AppCompatActivity {
             builder.setTitle("Result");
             builder.setMessage(result.getContents());
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
+
+                    Map<String, Object> umbrellaSession = new HashMap<>();
+                    umbrellaSession.put("dateCreated","" + date);
+                    umbrellaSession.put("paymentStatus","Pending");
+                    umbrellaSession.put("UmbrellaID","" + result.getContents());
+                    umbrellaSession.put("userID","Alex");
+
+/*                    db.collection("umbrellaSession").document("J8mc1h1HuxtfG6275JQG")
+                            .set(umbrellaSession)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+
+                                }
+                            });*/
+
+                    db.collection("umbrellaSession")
+                            .add(umbrellaSession)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+
+                                }
+                            });
 
                 }
             }).show();
