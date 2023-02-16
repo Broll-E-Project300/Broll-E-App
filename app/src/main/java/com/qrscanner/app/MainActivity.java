@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Button signOut;
     TextView signInMain, createAccountMain;
     FirebaseAuth firebaseAuth;
+    String currentID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +39,18 @@ public class MainActivity extends AppCompatActivity {
             signInMain.setVisibility(View.VISIBLE);
             createAccountMain.setVisibility(View.VISIBLE);
             signOut.setVisibility(View.GONE);
+
+
         }
         else {
             signInMain.setVisibility(View.GONE);
             createAccountMain.setVisibility(View.GONE);
             signOut.setVisibility(View.VISIBLE);
+            //ASSIGNING USER ID TO "currentID" variable
+            currentID = user.getUid().toString();
+            //Toast.makeText(MainActivity.this, currentID, Toast.LENGTH_SHORT).show();
         }
+
         signInMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
