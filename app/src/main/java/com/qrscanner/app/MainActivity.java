@@ -27,13 +27,15 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     private Button buttonPlans, buttonCard;
 
+    //Create a new instance of the accounts controller
+    AnalyticsController analytics = new AnalyticsController();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Send the screen name to the analytics Controller
-        AnalyticsController analytics = new AnalyticsController();
         analytics.SendScreenNameToAnalytics("Main Activity");
 
         signInMain = findViewById(R.id.MainloginBtn);
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Send the button name to the analytics
+                analytics.SendButtonClick("Maps button");
                 startActivity(new Intent(getApplicationContext(), MapsActivity2.class));
             }
         });
@@ -54,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
         buttonPlans = (Button) findViewById(R.id.btnPlans);
         buttonPlans.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+                //Send the button name to the analytics
+                analytics.SendButtonClick("Plans button");
                 openPlansActivity();
             }
         });
@@ -62,7 +69,10 @@ public class MainActivity extends AppCompatActivity {
         buttonCard = (Button) findViewById(R.id.btnCreditCard);
         buttonCard.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+                //Send the button name to the analytics
+                analytics.SendButtonClick("CreditCard button");
                 openCreditCard();
             }
         });
@@ -82,18 +92,25 @@ public class MainActivity extends AppCompatActivity {
         signInMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Send the button name to the analytics
+                analytics.SendButtonClick("Sign in button");
                 startActivity(new Intent(getApplicationContext(), Login.class));
             }
         });
         createAccountMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Send the button name to the analytics
+                analytics.SendButtonClick("Register button");
                 startActivity(new Intent(getApplicationContext(), Register.class));
             }
         });
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+                //Send the button name to the analytics
+                analytics.SendButtonClick("Sign out button");
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(MainActivity.this, "Sign Out complete", Toast.LENGTH_SHORT).show();
                 signOut.setVisibility(View.GONE);
@@ -102,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void scanCode()
     {
