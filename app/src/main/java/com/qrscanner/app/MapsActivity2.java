@@ -37,6 +37,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.qrscanner.app.databinding.ActivityMaps2Binding;
 
+import java.util.List;
+
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -99,7 +101,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         });
 
         db.collection("testKiosks")
-                .whereEqualTo("Status", "online")
+                .whereEqualTo("Status", "Online")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -108,17 +110,24 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                String umbrellas = document.getString("Umbrellas");
-                                int NoofUmb = Integer.parseInt(umbrellas);
+/*                                String umbrellas = document.getString("Umbrellas");
+                                int NoofUmb = Integer.parseInt(umbrellas);*/
+
+                                List<String> list = (List<String>) document.get("UmbrellasArray");
+                                int NoofUmb = list.size();
+                                //String Umbrella1 = list.get(0);
+
+                                int availableSpaces = 6 - NoofUmb;
 
                                 String LocationLat = document.getString("LocationLat");
                                 String LocationLng = document.getString("LocationLng");
                                 double LocLat = Double.parseDouble(LocationLat);
                                 double LocLng = Double.parseDouble(LocationLng);
 
-                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
+/*                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
+                                int availableSpaces = Integer.parseInt(AvailableSpaces);*/
+
                                 String LocationName = document.getString("LocationName");
-                                int availableSpaces = Integer.parseInt(AvailableSpaces);
 
                                 String Status = document.getString("Status");
 
@@ -161,7 +170,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 });
 
         db.collection("testKiosks")
-                .whereEqualTo("Status", "offline")
+                .whereEqualTo("Status", "Offline")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -170,17 +179,24 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                String umbrellas = document.getString("Umbrellas");
-                                int NoofUmb = Integer.parseInt(umbrellas);
+/*                                String umbrellas = document.getString("Umbrellas");
+                                int NoofUmb = Integer.parseInt(umbrellas);*/
+
+                                List<String> list = (List<String>) document.get("UmbrellasArray");
+                                int NoofUmb = list.size();
+                                //String Umbrella1 = list.get(0);
+
+                                int availableSpaces = 6 - NoofUmb;
 
                                 String LocationLat = document.getString("LocationLat");
                                 String LocationLng = document.getString("LocationLng");
                                 double LocLat = Double.parseDouble(LocationLat);
                                 double LocLng = Double.parseDouble(LocationLng);
 
-                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
+/*                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
+                                int availableSpaces = Integer.parseInt(AvailableSpaces);*/
+
                                 String LocationName = document.getString("LocationName");
-                                int availableSpaces = Integer.parseInt(AvailableSpaces);
 
                                 String Status = document.getString("Status");
 
@@ -191,11 +207,11 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                                 marker.title(LocationName);
                                 marker.snippet("Umbrellas: " + NoofUmb + "\n" + "Umbrella Spaces: " + availableSpaces + "\n" + "Status: " + Status);
                                 if (NoofUmb == 0) {
-                                    marker.icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_baseline_beach_access_lightred));
+                                    marker.icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_baseline_beach_access_red));
                                 }
                                 else
                                 {
-                                    marker.icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_baseline_beach_access_light24));
+                                    marker.icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_baseline_beach_access_24));
                                 }
                                 mMap.addMarker(marker);
 
