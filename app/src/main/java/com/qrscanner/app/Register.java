@@ -31,6 +31,10 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        //Send the screen name to the analytics Controller
+        AnalyticsController analytics = new AnalyticsController();
+        analytics.SendScreenNameToAnalytics("Register Activity");
+
         //Binding the created variables to their respective UI ID's
         mfullName = findViewById(R.id.fullName);
         mEmail = findViewById(R.id.Email);

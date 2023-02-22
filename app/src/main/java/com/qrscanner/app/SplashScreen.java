@@ -12,6 +12,10 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Send the screen name to the analytics Controller
+        AnalyticsController analytics = new AnalyticsController();
+        analytics.SendScreenNameToAnalytics("Splashscreen Activity");
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -19,6 +23,5 @@ public class SplashScreen extends AppCompatActivity {
                 finish();
             }
         },10000);
-
     }
 }

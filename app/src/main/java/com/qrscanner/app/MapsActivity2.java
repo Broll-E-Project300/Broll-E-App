@@ -47,6 +47,10 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Send the screen name to the analytics Controller
+        AnalyticsController analytics = new AnalyticsController();
+        analytics.SendScreenNameToAnalytics("Maps Activity");
+
         binding = ActivityMaps2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

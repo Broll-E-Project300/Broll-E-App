@@ -32,6 +32,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //Send the screen name to the analytics Controller
+        AnalyticsController analytics = new AnalyticsController();
+        analytics.SendScreenNameToAnalytics("Login Activity");
+
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.password);
         mLoginBtn = findViewById(R.id.MainloginBtn);

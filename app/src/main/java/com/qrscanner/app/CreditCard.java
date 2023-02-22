@@ -23,6 +23,10 @@ public class CreditCard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credit_card);
 
+        //Send the screen name to the analytics Controller
+        AnalyticsController analytics = new AnalyticsController();
+        analytics.SendScreenNameToAnalytics("CreditCard Activity");
+
         cardForm = findViewById(R.id.card_form);
         buy = findViewById(R.id.btnBuy);
 

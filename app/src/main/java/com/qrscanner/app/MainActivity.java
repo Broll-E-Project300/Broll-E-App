@@ -12,14 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
+//Add for Google Firebase Analytics
 
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
     Button buttonScan, buttonMap, signOut;
     TextView signInMain, createAccountMain;
     FirebaseAuth firebaseAuth;
@@ -29,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Send the screen name to the analytics Controller
+        AnalyticsController analytics = new AnalyticsController();
+        analytics.SendScreenNameToAnalytics("Main Activity");
 
         signInMain = findViewById(R.id.MainloginBtn);
         createAccountMain = findViewById(R.id.MainregisterBtn);
