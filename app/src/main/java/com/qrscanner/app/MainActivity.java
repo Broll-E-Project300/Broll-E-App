@@ -28,12 +28,15 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonPlans, buttonCard;
 
     //Create a new instance of the accounts controller
-    AnalyticsController analytics = new AnalyticsController();
+    AnalyticsController analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Initialize analytics in oncreate.
+        analytics = new AnalyticsController();
 
         //Send the screen name to the analytics Controller
         analytics.SendScreenNameToAnalytics("Main Activity");
