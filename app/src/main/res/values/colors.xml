@@ -6,7 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="OrangeBrand">#fcad03</color>
-    <color name="OrangeSecond">#fcc53a</color>
+    <color name="white">#f5f5f5</color>
+    <color name="OrangeBrand">#fe5c3e</color>
+    <color name="OrangeSecond">#fe393a</color>
 </resources>

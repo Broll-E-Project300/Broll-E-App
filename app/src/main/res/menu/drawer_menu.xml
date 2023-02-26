@@ -16,7 +16,7 @@
             />
 
     </group>
-    <item android:title="Learn">
+    <!--<item android:title="Learn">
         <menu>
             <item
                 android:id="@+id/support"
@@ -32,7 +32,7 @@
                 android:title="Share this app"
                 />
         </menu>
-    </item>
+    </item>-->
     <item
         android:id="@+id/nav_logout"
         android:title="Logout"

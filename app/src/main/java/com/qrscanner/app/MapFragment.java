@@ -1,6 +1,7 @@
 package com.qrscanner.app;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,19 +37,26 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.protobuf.DescriptorProtos;
 import com.qrscanner.app.databinding.ActivityMaps2Binding;
 
 import java.util.List;
@@ -51,158 +66,202 @@ public class MapFragment extends Fragment {
     Integer check = 0;
     ItemViewModel viewModel;
     int umbrellaNumber, available = 6;
+    Location currentLocation;
+    String ulat, ulong;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    private final static int REQUEST_CODE = 101;
 
     private GoogleMap mMap;
     private ActivityMaps2Binding binding;
     private FirebaseFirestore db;
+    private LocationRequest locationRequest;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Initialize view
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        //Initialize map fragment
-        SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.map);
-        db = FirebaseFirestore.getInstance();
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull GoogleMap googleMap) {
-                mMap = googleMap;
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        if (ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        }
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location!=null){
+                            currentLocation = location;
+                            ulat = String.valueOf(location.getLatitude());
+                            ulong = String.valueOf(location.getLongitude());
 
-                if (ActivityCompat.checkSelfPermission(getActivity(),
+                        }
+                        //Initiate googleMap
+                        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                                getChildFragmentManager().findFragmentById(R.id.map);
+                        db = FirebaseFirestore.getInstance();
+                        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                            @SuppressLint("MissingPermission")
+                            @Override
+                            public void onMapReady(@NonNull GoogleMap googleMap) {
+                                mMap = googleMap;
+
+                /*if (ActivityCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
                     return;
+                }*/
+                                mMap.setMyLocationEnabled(true);
+                                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                                //Toast.makeText(getActivity(), ulat, Toast.LENGTH_SHORT).show();
+                                LatLng userlocale = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+                                //mMap.addMarker(new MarkerOptions().position(userlocale));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userlocale,15));
+
+
+
+                                db.collection("testKiosks")
+                                        .whereEqualTo("Status","Online")
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+/*                                String umbrellas = document.getString("Umbrellas");
+                                int NoofUmb = Integer.parseInt(umbrellas);*/
+
+                                                        List<String> list = (List<String>) document.get("UmbrellasArray");
+                                                        int NoofUmb = list.size();
+                                                        //String Umbrella1 = list.get(0);
+
+                                                        int availableSpaces = available - NoofUmb;
+
+                                                        String LocationLat = document.getString("LocationLat");
+                                                        String LocationLng = document.getString("LocationLng");
+                                                        double LocLat = Double.parseDouble(LocationLat);
+                                                        double LocLng = Double.parseDouble(LocationLng);
+
+/*                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
+                                int availableSpaces = Integer.parseInt(AvailableSpaces);*/
+
+                                                        String LocationName = document.getString("LocationName");
+
+                                                        String Status = document.getString("Status");
+
+                                                        LatLng Location = new LatLng(LocLat, LocLng);
+
+                                                        MarkerOptions marker = new MarkerOptions();
+                                                        marker.position(Location);
+
+                                                        marker.title(LocationName);
+                                                        marker.snippet(String.valueOf(NoofUmb));
+                                                        // marker.snippet("Umbrellas: " + NoofUmb + "\n" + "Umbrella Spaces: " + availableSpaces + "\n" + "Status: " + Status);
+                                                        if (NoofUmb == 0) {
+                                                            marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_red));
+                                                        }
+                                                        else
+                                                        {
+                                                            marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_24));
+                                                        }
+                                                        mMap.addMarker(marker);
+                                                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                                            @Override
+                                                            public boolean onMarkerClick(@NonNull Marker marker) {
+                                                                showDockDialog(marker);
+                                                                return true;
+                                                            }
+                                                        });
+
+
+                                                    }
+                                                }
+                                            }
+                                        });
+                                db.collection("testKiosks")
+                                        .whereEqualTo("Status", "Offline")
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                                if (task.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+/*                                String umbrellas = document.getString("Umbrellas");
+                                int NoofUmb = Integer.parseInt(umbrellas);*/
+
+                                                        List<String> list = (List<String>) document.get("UmbrellasArray");
+                                                        int NoofUmb = list.size();
+                                                        //String Umbrella1 = list.get(0);
+
+                                                        int availableSpaces = 6 - NoofUmb;
+
+                                                        String LocationLat = document.getString("LocationLat");
+                                                        String LocationLng = document.getString("LocationLng");
+                                                        double LocLat = Double.parseDouble(LocationLat);
+                                                        double LocLng = Double.parseDouble(LocationLng);
+
+/*                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
+                                int availableSpaces = Integer.parseInt(AvailableSpaces);*/
+
+                                                        String LocationName = document.getString("LocationName");
+
+                                                        String Status = document.getString("Status");
+
+                                                        LatLng Location = new LatLng(LocLat, LocLng);
+
+                                                        MarkerOptions marker = new MarkerOptions();
+                                                        marker.position(Location);
+                                                        marker.title(LocationName);
+                                                        marker.snippet(String.valueOf(NoofUmb));
+                                                        // marker.snippet("Umbrellas: " + NoofUmb + "\n" + "Umbrella Spaces: " + availableSpaces + "\n" + "Status: " + Status);
+                                                        if (NoofUmb == 0) {
+                                                            marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_red));
+                                                        }
+                                                        else
+                                                        {
+                                                            marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_24));
+                                                        }
+                                                        mMap.addMarker(marker);
+                                                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                                            @Override
+                                                            public boolean onMarkerClick(@NonNull Marker marker) {
+                                                                showDockDialog(marker);
+                                                                return true;
+                                                            }
+                                                        });
+
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                            }
+                        });
+
+                    }
+                });
+        /*Task<Location> task = fusedLocationProviderClient.getCurrentLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location!=null){
+                    currentLocation= location;
+
+
                 }
-                mMap.setMyLocationEnabled(true);
-
-
-
-                db.collection("testKiosks")
-                        .whereEqualTo("Status","Online")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-
-/*                                String umbrellas = document.getString("Umbrellas");
-                                int NoofUmb = Integer.parseInt(umbrellas);*/
-
-                                        List<String> list = (List<String>) document.get("UmbrellasArray");
-                                        int NoofUmb = list.size();
-                                        //String Umbrella1 = list.get(0);
-
-                                        int availableSpaces = available - NoofUmb;
-
-                                        String LocationLat = document.getString("LocationLat");
-                                        String LocationLng = document.getString("LocationLng");
-                                        double LocLat = Double.parseDouble(LocationLat);
-                                        double LocLng = Double.parseDouble(LocationLng);
-
-/*                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
-                                int availableSpaces = Integer.parseInt(AvailableSpaces);*/
-
-                                        String LocationName = document.getString("LocationName");
-
-                                        String Status = document.getString("Status");
-
-                                        LatLng Location = new LatLng(LocLat, LocLng);
-
-                                        MarkerOptions marker = new MarkerOptions();
-                                        marker.position(Location);
-
-                                        marker.title(LocationName);
-                                        marker.snippet(String.valueOf(NoofUmb));
-                                       // marker.snippet("Umbrellas: " + NoofUmb + "\n" + "Umbrella Spaces: " + availableSpaces + "\n" + "Status: " + Status);
-                                        if (NoofUmb == 0) {
-                                            marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_red));
-                                        }
-                                        else
-                                        {
-                                            marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_24));
-                                        }
-                                        mMap.addMarker(marker);
-                                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                                            @Override
-                                            public boolean onMarkerClick(@NonNull Marker marker) {
-                                                showDockDialog(marker);
-                                                return true;
-                                            }
-                                        });
-
-
-                                    }
-                                }
-                            }
-                        });
-                db.collection("testKiosks")
-                        .whereEqualTo("Status", "Offline")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-
-/*                                String umbrellas = document.getString("Umbrellas");
-                                int NoofUmb = Integer.parseInt(umbrellas);*/
-
-                                        List<String> list = (List<String>) document.get("UmbrellasArray");
-                                        int NoofUmb = list.size();
-                                        //String Umbrella1 = list.get(0);
-
-                                        int availableSpaces = 6 - NoofUmb;
-
-                                        String LocationLat = document.getString("LocationLat");
-                                        String LocationLng = document.getString("LocationLng");
-                                        double LocLat = Double.parseDouble(LocationLat);
-                                        double LocLng = Double.parseDouble(LocationLng);
-
-/*                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
-                                int availableSpaces = Integer.parseInt(AvailableSpaces);*/
-
-                                        String LocationName = document.getString("LocationName");
-
-                                        String Status = document.getString("Status");
-
-                                        LatLng Location = new LatLng(LocLat, LocLng);
-
-                                        MarkerOptions marker = new MarkerOptions();
-                                        marker.position(Location);
-                                        marker.title(LocationName);
-                                        marker.snippet(String.valueOf(NoofUmb));
-                                        // marker.snippet("Umbrellas: " + NoofUmb + "\n" + "Umbrella Spaces: " + availableSpaces + "\n" + "Status: " + Status);
-                                        if (NoofUmb == 0) {
-                                            marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_red));
-                                        }
-                                        else
-                                        {
-                                            marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_24));
-                                        }
-                                        mMap.addMarker(marker);
-                                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                                            @Override
-                                            public boolean onMarkerClick(@NonNull Marker marker) {
-                                                showDockDialog(marker);
-                                                return true;
-                                            }
-                                        });
-
-                                    }
-                                }
-                            }
-                        });
-
+                currentLocation = location;
+                ulat = String.valueOf(currentLocation.getLatitude());
             }
-        });
+        });*/
+        //Initialize map fragment
 
 
         //Return view
@@ -266,6 +325,19 @@ public class MapFragment extends Fragment {
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    //Get current location
+    private void getCurrentLocation(){
+        if (ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION
+                    }, REQUEST_CODE);
+            return;
+        }
     }
 
 }

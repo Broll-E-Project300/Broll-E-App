@@ -2,13 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="176dp"
+    android:layout_height="180dp"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="@color/OrangeSecond"
+    android:background="#ffffff"
     android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_logo_foreground"
+        android:layout_marginBottom="-9dp"
+        android:layout_marginStart="5dp"/>
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="@color/bt_light_gray"
+        android:text="Revolutionary Rain cover"
+        android:layout_marginStart="12dp"
+
+        />
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="35dp"
@@ -24,5 +39,5 @@
         android:textColor="@color/white"
         android:text="Revolutionary Rain cover"
         android:layout_marginBottom="@dimen/cardview_default_radius"
-        />
+        />-->
 </LinearLayout>
