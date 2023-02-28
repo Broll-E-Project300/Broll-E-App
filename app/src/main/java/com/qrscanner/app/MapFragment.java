@@ -109,13 +109,6 @@ public class MapFragment extends Fragment {
                             @Override
                             public void onMapReady(@NonNull GoogleMap googleMap) {
                                 mMap = googleMap;
-
-                /*if (ActivityCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        && ActivityCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }*/
                                 mMap.setMyLocationEnabled(true);
                                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                                 //Toast.makeText(getActivity(), ulat, Toast.LENGTH_SHORT).show();
@@ -134,9 +127,6 @@ public class MapFragment extends Fragment {
                                                 if (task.isSuccessful()) {
                                                     for (QueryDocumentSnapshot document : task.getResult()) {
 
-/*                                String umbrellas = document.getString("Umbrellas");
-                                int NoofUmb = Integer.parseInt(umbrellas);*/
-
                                                         List<String> list = (List<String>) document.get("UmbrellasArray");
                                                         int NoofUmb = list.size();
                                                         //String Umbrella1 = list.get(0);
@@ -147,9 +137,6 @@ public class MapFragment extends Fragment {
                                                         String LocationLng = document.getString("LocationLng");
                                                         double LocLat = Double.parseDouble(LocationLat);
                                                         double LocLng = Double.parseDouble(LocationLng);
-
-/*                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
-                                int availableSpaces = Integer.parseInt(AvailableSpaces);*/
 
                                                         String LocationName = document.getString("LocationName");
 
@@ -162,7 +149,6 @@ public class MapFragment extends Fragment {
 
                                                         marker.title(LocationName);
                                                         marker.snippet(String.valueOf(NoofUmb));
-                                                        // marker.snippet("Umbrellas: " + NoofUmb + "\n" + "Umbrella Spaces: " + availableSpaces + "\n" + "Status: " + Status);
                                                         if (NoofUmb == 0) {
                                                             marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_red));
                                                         }
@@ -194,12 +180,8 @@ public class MapFragment extends Fragment {
                                                 if (task.isSuccessful()) {
                                                     for (QueryDocumentSnapshot document : task.getResult()) {
 
-/*                                String umbrellas = document.getString("Umbrellas");
-                                int NoofUmb = Integer.parseInt(umbrellas);*/
-
                                                         List<String> list = (List<String>) document.get("UmbrellasArray");
                                                         int NoofUmb = list.size();
-                                                        //String Umbrella1 = list.get(0);
 
                                                         int availableSpaces = 6 - NoofUmb;
 
@@ -207,9 +189,6 @@ public class MapFragment extends Fragment {
                                                         String LocationLng = document.getString("LocationLng");
                                                         double LocLat = Double.parseDouble(LocationLat);
                                                         double LocLng = Double.parseDouble(LocationLng);
-
-/*                                String AvailableSpaces = document.getString("UmbSpacesAvailable");
-                                int availableSpaces = Integer.parseInt(AvailableSpaces);*/
 
                                                         String LocationName = document.getString("LocationName");
 
@@ -221,7 +200,6 @@ public class MapFragment extends Fragment {
                                                         marker.position(Location);
                                                         marker.title(LocationName);
                                                         marker.snippet(String.valueOf(NoofUmb));
-                                                        // marker.snippet("Umbrellas: " + NoofUmb + "\n" + "Umbrella Spaces: " + availableSpaces + "\n" + "Status: " + Status);
                                                         if (NoofUmb == 0) {
                                                             marker.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_beach_access_red));
                                                         }
@@ -248,21 +226,6 @@ public class MapFragment extends Fragment {
 
                     }
                 });
-        /*Task<Location> task = fusedLocationProviderClient.getCurrentLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location!=null){
-                    currentLocation= location;
-
-
-                }
-                currentLocation = location;
-                ulat = String.valueOf(currentLocation.getLatitude());
-            }
-        });*/
-        //Initialize map fragment
-
 
         //Return view
         return view;
@@ -327,17 +290,5 @@ public class MapFragment extends Fragment {
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-    //Get current location
-    private void getCurrentLocation(){
-        if (ActivityCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION
-                    }, REQUEST_CODE);
-            return;
-        }
-    }
 
 }
