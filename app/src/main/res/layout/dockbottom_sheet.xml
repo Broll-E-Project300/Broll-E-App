@@ -81,7 +81,7 @@
                     android:text="17"
                     android:textAlignment="center"
                     android:textSize="40dp"
-                    android:textColor="@color/OrangeSecond"
+                    android:textColor="@color/GreyBrand"
                     android:textStyle="bold"
                     />
             </LinearLayout>
@@ -126,7 +126,7 @@
                     android:textSize="40dp"
                     android:textAlignment="center"
                     android:textStyle="bold"
-                    android:textColor="@color/OrangeSecond"
+                    android:textColor="@color/GreyBrand"
                     />
             </LinearLayout>
 

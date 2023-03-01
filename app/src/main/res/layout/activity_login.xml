@@ -12,74 +12,121 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textColor="#050505"
-        android:textSize="20sp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/baloo_bhai"
+        android:text="Welcome,"
+        android:textAllCaps="false"
+        android:textSize="40dp"
+        android:textColor="@color/OrangeBrand"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.106"
+        app:layout_constraintVertical_bias="0.174"
         tools:ignore="TextContrastCheck,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/OrangeBrand"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:text="Glad to see you!"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:ems="10"
+        android:padding="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edittext_bg"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:textColor="@color/black"
-        android:textColorHint="#3E3B3B"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="@color/GreyBrand"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.32999998" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:ems="10"
-
+        android:layout_marginTop="15dp"
+        android:padding="15dp"
+        android:background="@drawable/edittext_bg"
         android:hint="Password"
         android:inputType="textPassword"
         android:textColor="@color/black"
-        android:textColorHint="#3E3B3B"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="@color/GreyBrand"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.060000002" />
+        />
+
 
     <Button
         android:id="@+id/MainloginBtn"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#47EF3B"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:background="@drawable/openlogin_btn"
+        android:fontFamily="@font/baloo_bhai"
         android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="40dp"
+        android:textAllCaps="false"
+        android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.33999997" />
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/googlesigntext"
+        android:text="Or sign in with"
+        android:textColor="@color/GreyBrand"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MainloginBtn"
+        />
+    <ImageView
+        android:id="@+id/google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/common_google_signin_btn_icon_light_normal"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/googlesigntext"
+        />
+
 
     <TextView
         android:id="@+id/registerAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
-        android:textColor="#2196F3"
+        android:text="Don't have an account?"
+        android:textColor="@color/GreyBrand"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MainloginBtn"
-        app:layout_constraintVertical_bias="0.24000001" />
+        app:layout_constraintTop_toBottomOf="@+id/google"
+       />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -87,9 +134,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerAccount" />
+        app:layout_constraintTop_toBottomOf="@+id/google" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
