@@ -30,7 +30,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class Register extends AppCompatActivity {
     //Variables
-    EditText mName, mEmail, mPassword;
+    EditText mConfirmpassword, mEmail, mPassword;
     Button mRegisterBtn;
     TextView mLoginBtn;
     ProgressBar mProgress;
@@ -50,36 +50,40 @@ public class Register extends AppCompatActivity {
         analytics.SendScreenNameToAnalytics("Register Activity");
 
         //Binding the created variables to their respective UI ID's
-        mName = findViewById(R.id.Name);
         mEmail = findViewById(R.id.Email);
         mProgress = findViewById(R.id.progressBar);
         mPassword = findViewById(R.id.password);
         mRegisterBtn = findViewById(R.id.MainregisterBtn);
         mLoginBtn = findViewById(R.id.accountlogin);
+        mConfirmpassword = findViewById(R.id.confirmpassword);
 
         firebaseAuth  = FirebaseAuth.getInstance();
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String user_email = mEmail.getText().toString().trim();
                 String user_password = mPassword.getText().toString().trim();
+                String user_confirm = mConfirmpassword.getText().toString().trim();
 
 
                 //Checking if the email field is empty
                 if (TextUtils.isEmpty(user_email)){
                     mEmail.setError("Email address is required.");
                     return;
-                }
-                //Checking if the password field is empty
-                if (TextUtils.isEmpty(user_password)){
-                    mPassword.setError("Password is required.");
+                }else if(user_password.isEmpty()){
+                    mPassword.setError("Password required");
                     return;
-                }
-                //Password should be greater than 6 characters
-                if (user_password.length()<6){
-                    mPassword.setError("Must be at least 6 characters long");
+                }else if(user_password.length()<6){
+                    mPassword.setError("Password must be at least 6 characters");
                     return;
+                }else if(!user_password.equals(user_confirm)){
+                    mConfirmpassword.setText("");
+                    mPassword.setError("Passwords must match");
+                    return;
+                }else {
+
                 }
 
 
@@ -89,7 +93,6 @@ public class Register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         mProgress.setVisibility(View.VISIBLE);
                         if (task.isSuccessful()){
-                            Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Register.this, MainActivity2.class));
                             finish();
                         }else {

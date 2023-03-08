@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FinishPayment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="40dp"
+        android:id="@+id/pay_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/pay_backbutton"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_back2"
+            android:background="@drawable/docksheet_back_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/plantext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/baloo_bhai"
+            android:paddingRight="30dp"
+            android:text="Payment"
+            android:textAlignment="center"
+            android:textColor="@color/OrangeBrand"
+            android:textSize="17dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Choose a payment plan"
+        android:textSize="23dp"
+        android:id="@+id/pay_text"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/GreyBrand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pay_toolbar"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/payradio"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pay_text">
+        <RadioButton
+            android:id="@+id/plan_4hr_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/OrangeBrand"
+            android:text="€0.70/4 hours"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:paddingLeft="15dp"
+            />
+        <RadioButton
+            android:id="@+id/plan_12hr_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/OrangeBrand"
+            android:layout_marginTop="10dp"
+            android:text="€2.00/12 hours"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:paddingLeft="15dp"
+            />
+        <RadioButton
+            android:id="@+id/plan_24hr_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/OrangeBrand"
+            android:layout_marginTop="10dp"
+            android:text="€4.30/24 hours"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:paddingLeft="15dp"
+            />
+
+    </RadioGroup>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Pay"
+        android:fontFamily="@font/baloo_bhai"
+        android:layout_marginBottom="40dp"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/btn_scan"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

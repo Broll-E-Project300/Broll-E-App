@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f5"
+    android:background="#ffffff"
     tools:context=".Plans">
 
     <ImageButton
@@ -48,52 +48,49 @@
         android:textColor="@color/OrangeBrand"
         app:layout_constraintTop_toBottomOf="@id/umbImage"
         android:layout_marginTop="20dp"
-        android:text="Choose your plan"
+        android:text="Our Pricing"
         android:textAlignment="center"
         android:fontFamily="@font/baloo_bhai"
         android:textSize="25dp"
         />
-
-    <RadioGroup
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/planradio"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
         android:layout_marginEnd="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/plantext">
-        <RadioButton
-            android:textColor="@drawable/custom_radio_text"
-            android:background="@drawable/radio_selector"
-            android:id="@+id/plan_4hr_radio"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:button="@android:color/transparent"
-            android:drawableLeft="@drawable/radio_drawable"
+            android:textColor="@color/GreyBrand"
+            android:background="@drawable/radio_selector"
+            android:id="@+id/plan_4hr_radio"
             android:drawablePadding="10dp"
             android:text="€0.70/4 hours"
+            android:textAlignment="center"
             android:textStyle="bold"
             android:textSize="20dp"
             android:padding="20dp"
             />
-        <RadioButton
-            android:textColor="@drawable/custom_radio_text"
+        <TextView
+            android:textColor="@color/GreyBrand"
             android:background="@drawable/radio_selector"
             android:id="@+id/plan_12hr_radio"
             android:layout_marginTop="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="€2.00/12 hours"
-            android:button="@android:color/transparent"
-            android:drawableLeft="@drawable/radio_drawable"
-            android:drawablePadding="10dp"
             android:textStyle="bold"
             android:textSize="20dp"
             android:padding="20dp"
+            android:textAlignment="center"
             />
-        <RadioButton
+        <TextView
+            android:textAlignment="center"
             android:textColor="@drawable/custom_radio_text"
             android:background="@drawable/radio_selector"
             android:id="@+id/plan_24hr_radio"
@@ -102,28 +99,11 @@
             android:layout_height="wrap_content"
             android:text="€4.30/24 hours"
             android:textStyle="bold"
-            android:button="@android:color/transparent"
-            android:drawableLeft="@drawable/radio_drawable"
-            android:drawablePadding="10dp"
             android:textSize="20dp"
-            android:padding="20dp"
-            />
-    </RadioGroup>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:id="@+id/plans_button"
-        android:textSize="20dp"
-        android:fontFamily="@font/baloo_bhai"
-        android:text="Continue"
-        android:background="@drawable/btn_scan"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+            android:padding="20dp"/>
+
+
+    </LinearLayout>
 
     <!--<Button
         android:id="@+id/button3"
