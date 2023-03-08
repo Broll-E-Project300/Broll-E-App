@@ -8,10 +8,10 @@
     tools:context=".Plans">
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/dayPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="buy day plan"
+        android:text="buy 12h plan"
         app:layout_constraintBottom_toTopOf="@+id/guideline20"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline14"
@@ -21,7 +21,7 @@
         android:id="@+id/textView5"
         android:layout_width="96dp"
         android:layout_height="29dp"
-        android:text="$ 4,99 / day"
+        android:text="€2 / 12 hours"
         android:textColor="#E6E2E2"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -148,10 +148,10 @@
         app:layout_constraintGuide_percent="0.4500684" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/hrPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="buy hour plan"
+        android:text="buy 4h plan"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline14"
@@ -161,14 +161,14 @@
         android:id="@+id/textView3"
         android:layout_width="96dp"
         android:layout_height="29dp"
-        android:text="$ 2,99 / hour"
+        android:text="€0.70 / 4 hours"
         android:textColor="#E6E2E2"
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="@+id/guideline14"
         app:layout_constraintTop_toTopOf="@+id/guideline15"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintVertical_bias="0.388" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline17"

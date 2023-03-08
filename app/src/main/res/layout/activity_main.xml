@@ -166,14 +166,4 @@
         app:layout_constraintTop_toBottomOf="@+id/MainregisterBtn"
         app:layout_constraintVertical_bias="0.38" />
 
-    <Button
-        android:id="@+id/btnPay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payy"
-        app:layout_constraintBottom_toTopOf="@+id/guideline27"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toEndOf="@+id/MainloginBtn"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
