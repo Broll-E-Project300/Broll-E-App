@@ -60,6 +60,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         db = FirebaseFirestore.getInstance();
+
     }
 
     @Override
