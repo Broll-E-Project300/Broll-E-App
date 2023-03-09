@@ -35,8 +35,7 @@ public class Plans extends AppCompatActivity {
     //String paymentIntentClientSecret;
     PaymentSheet.CustomerConfiguration configuration;
 
-     String Secret_Key="sk_test_51MWmAWAN6SGb0UM2Q779ZFV8IuLThGCZ7tMao8PBYWg5rVhTY1I7M0eKBYbxi3F17IJ2FAOPldLP7zl4eMR02ahy00U3G94ekP";
-                          //pk_test_51MWmAWAN6SGb0UM210EmE3aLhc7I39xyR9pUVQcENjv1815rhrvKxPg3nk8B0NndbtHM7rXE8APYlShccWgRHgji00jB0n7kk1
+    String Secret_Key="sk_test_51MWmAWAN6SGb0UM2Q779ZFV8IuLThGCZ7tMao8PBYWg5rVhTY1I7M0eKBYbxi3F17IJ2FAOPldLP7zl4eMR02ahy00U3G94ekP";
     String Publishable_Key="pk_test_51MWmAWAN6SGb0UM210EmE3aLhc7I39xyR9pUVQcENjv1815rhrvKxPg3nk8B0NndbtHM7rXE8APYlShccWgRHgji00jB0n7kk1";
 
     String customerId;
@@ -77,11 +76,6 @@ public class Plans extends AppCompatActivity {
                 PaymentHourFlow();
             }
         });
-
-
-
-
-
 
         //method to connect to stripe api
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -244,8 +238,10 @@ public class Plans extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params=new HashMap<>();
 
+               String amount = "70";
+
                 params.put("customer", customerId);
-                params.put("amount", "3"+ "00");
+                params.put("amount" , amount);
                 params.put("currency", "eur");
                 params.put("automatic_payment_methods[enabled]","true");
 
