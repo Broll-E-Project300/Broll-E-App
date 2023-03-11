@@ -7,18 +7,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.provider.Settings.Secure;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 //Add for Google Firebase Analytics
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Create a new instance of the accounts controller
     AnalyticsController analytics;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,9 +153,34 @@ public class MainActivity extends AppCompatActivity {
             builder.setTitle("Result");
             builder.setMessage(result.getContents());
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
+
+                    Map<String, Object> umbrellaSession = new HashMap<>();
+                    umbrellaSession.put("dateCreated","" + date);
+                    umbrellaSession.put("paymentStatus","Pending");
+                    umbrellaSession.put("UmbrellaID","" + result.getContents());
+                    umbrellaSession.put("userID","Alex");
+
+/*                    db.collection("umbrellaSession").document("J8mc1h1HuxtfG6275JQG")
+                            .set(umbrellaSession)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+
+                                }
+                            });*/
+
+                    db.collection("umbrellaSession")
+                            .add(umbrellaSession)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+
+                                }
+                            });
 
                 }
             }).show();
