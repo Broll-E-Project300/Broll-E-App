@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="false"
+    tools:context=".MainActivity2"
+    tools:openDrawer="start"
+    ><!--tools:openDrawer="start"-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--<androidx.appcompat.widget.Toolbar
+           android:layout_width="match_parent"
+           android:layout_height="?attr/actionBarSize"
+           android:background="@color/OrangeBrand"
+           android:id="@+id/toolbar"
+           android:theme="@style/ThemeOverlay.AppCompat.Dark"
+           app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+           android:elevation="4dp"/>-->
+        <!-- <Button
+             android:id="@+id/button2"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="150dp"
+             android:drawableLeft="@drawable/ic_scanicon"
+             android:background="@drawable/btn_scan"
+             android:text="Scan"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent" />-->
+        <ImageButton
+            android:id="@+id/menu_btn"
+            android:layout_width="49dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/btn_shape"
+            android:elevation="20dp"
+            android:src="@drawable/ic_menu"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/Scan_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/btn_scan"
+            android:text="Scan"
+            android:textSize="18dp"
+            android:paddingLeft="60dp"
+            android:paddingRight="60dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:drawableLeft="@drawable/ic_scanicon"
+            android:drawablePadding="10dp"
+            app:iconGravity="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_view"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu"
+        app:itemTextAppearance="@style/menu_text_style"/>
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

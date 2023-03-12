@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET/" />
-   
-    
+
+
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:usesCleartextTraffic="true"
@@ -28,6 +28,41 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".FinishPayment"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screen_LoginRegister"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Splash_activity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".InformationActivity"
             android:exported="false">
             <meta-data
@@ -36,13 +71,6 @@
         </activity>
         <activity
             android:name=".Plans"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".SplashScreen"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -86,17 +114,10 @@
 
         <activity
             android:name=".MapsActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_maps2" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

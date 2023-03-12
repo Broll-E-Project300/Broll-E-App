@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:id="@+id/nav_loginshow">
+        <item
+            android:id="@+id/nav_plans"
+            android:title="Plans"
+            android:icon="@drawable/ic_pricing"
+            />
+
+    </group>
+    <!--<item android:title="Learn">
+        <menu>
+            <item
+                android:id="@+id/support"
+                android:icon="@drawable/ic_send"
+                android:title="Support" />
+            <item
+                android:id="@+id/nav_message"
+                android:icon="@drawable/ic_message"
+                android:title="Terms" />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share"
+                android:title="Share this app"
+                />
+        </menu>
+    </item>-->
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout"
+        android:icon="@drawable/ic_logout" />
+
+</menu>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.MaterialComponents.Button.OutlinedButton.regbutton">
+        <item name="strokeColor">@color/GreyBrand</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="color">@android:color/transparent</item>
+        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="rippleColor">#d4cfcf</item>
+        <item name="elevation">0dp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="android:padding">13dp</item>
+    </style>
+</resources>
