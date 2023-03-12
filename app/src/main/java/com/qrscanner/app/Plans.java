@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.stripe.android.PaymentConfiguration;
+import com.stripe.android.model.PaymentIntent;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.stripe.android.paymentsheet.PaymentSheetResult;
 
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Plans extends AppCompatActivity {
+public class Plans extends AppCompatActivity implements View.OnClickListener{
 
 
 
@@ -42,6 +43,16 @@ public class Plans extends AppCompatActivity {
     String EphericalKey;
     String ClientSecret;
 
+    //String amount;
+
+    //day play for 5 euros
+    String amountDay = "500";
+    // hour plan 0.70/hour
+    String amountHour = "70";
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +60,7 @@ public class Plans extends AppCompatActivity {
 
         Button hourPlan = findViewById(R.id.hrPlan);
 
-        Button dayPlanbtn = findViewById(R.id.dayPlan);
-
-
-
+        Button dayPlan = findViewById(R.id.dayPlan);
 
         PaymentConfiguration.init(this,Publishable_Key);
         paymentSheet=new PaymentSheet(this, paymentSheetResult -> {
@@ -62,25 +70,12 @@ public class Plans extends AppCompatActivity {
 
         });
 
-        hourPlan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PaymentHourFlow();
-            }
-        });
+        hourPlan.setOnClickListener(this);
+        dayPlan.setOnClickListener(this);
 
-
-        dayPlanbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PaymentHourFlow();
-            }
-        });
 
         //method to connect to stripe api
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                "https://api.stripe.com/v1/customers",
-                new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,   "https://api.stripe.com/v1/customers" ,      new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
@@ -97,7 +92,6 @@ public class Plans extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-
 
                 }, new Response.ErrorListener(){
             @Override
@@ -129,10 +123,27 @@ public class Plans extends AppCompatActivity {
 
     } //end on payment method
 
-    //TODO Await - try catch
 
-  //mehod that calls payment
+  //method that calls payment
     private void PaymentHourFlow() {
+        try {
+            paymentSheet.presentWithPaymentIntent(
+                    ClientSecret,
+                    new PaymentSheet.Configuration(
+                            "Broll-E",
+                            new PaymentSheet.CustomerConfiguration(
+                                    customerId,
+                                    EphericalKey
+
+                            )
+                    )
+            );
+        } catch (Exception e) {
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void PaymentDayFlow() {
         try {
             paymentSheet.presentWithPaymentIntent(
                     ClientSecret,
@@ -149,8 +160,6 @@ public class Plans extends AppCompatActivity {
         }
     }
 
-
-
     //method to get connect to the stripe api get key from json
     private void getEphericalkey(String customerId) {
 
@@ -165,7 +174,7 @@ public class Plans extends AppCompatActivity {
                             EphericalKey = object.getString("id");
                             Toast.makeText(Plans.this, EphericalKey, Toast.LENGTH_SHORT).show();
 
-                            getClientSecret(customerId, EphericalKey);
+                            getClientSecret(customerId, EphericalKey, amountDay);
                               //getEphericalkey(customerId);
 
                         } catch (JSONException e) {
@@ -201,8 +210,7 @@ public class Plans extends AppCompatActivity {
 
     }
 
-
-    private void getClientSecret(String customerId, String EphericalKey) {
+    private void getClientSecret(String customerId, String EphericalKey, String amount) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 "https://api.stripe.com/v1/payment_intents",
@@ -213,6 +221,13 @@ public class Plans extends AppCompatActivity {
                             JSONObject object = new JSONObject(response);
                             ClientSecret = object.getString("client_secret");
                             Toast.makeText(Plans.this, ClientSecret, Toast.LENGTH_SHORT).show();
+
+                            if (amount.equals(amountHour)) {
+                                PaymentHourFlow();
+                            } else {
+                                PaymentDayFlow();
+                            }
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -233,12 +248,9 @@ public class Plans extends AppCompatActivity {
                 return header;
             }
 
-
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params=new HashMap<>();
-
-               String amount = "70";
 
                 params.put("customer", customerId);
                 params.put("amount" , amount);
@@ -247,10 +259,26 @@ public class Plans extends AppCompatActivity {
 
                 return params;
             }
+
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(
                 Plans.this );
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.hrPlan:
+                getClientSecret(customerId, EphericalKey, amountHour);
+                break;
+            case R.id.dayPlan:
+                getClientSecret(customerId, EphericalKey, amountDay);
+                break;
+
+
+        }
+
     }
 }
