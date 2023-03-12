@@ -46,6 +46,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -62,7 +63,7 @@ import com.qrscanner.app.databinding.ActivityMaps2Binding;
 import java.util.List;
 
 public class MapFragment extends Fragment {
-    Button button1;
+    ImageButton mylocation_btn;
     Integer check = 0;
     ItemViewModel viewModel;
     int umbrellaNumber, available = 6;
@@ -220,6 +221,14 @@ public class MapFragment extends Fragment {
                                                 }
                                             }
                                         });
+
+                                ImageButton location = view.findViewById(R.id.location_btn);
+                                location.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userlocale,15));
+                                    }
+                                });
 
                             }
                         });
