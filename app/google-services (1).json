@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "142391933782",
+    "project_id": "broll-e",
+    "storage_bucket": "broll-e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142391933782:android:828f60d88562b1f6f574f7",
+        "android_client_info": {
+          "package_name": "com.mapapi.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142391933782-jsofeg83qf904mqbqgigb5tgoalsplhu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATwKVbKzpD3fgpuqg7qZuGllaVbj28tQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142391933782-jsofeg83qf904mqbqgigb5tgoalsplhu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142391933782:android:0836188a11843426f574f7",
+        "android_client_info": {
+          "package_name": "com.qrscanner.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142391933782-jsofeg83qf904mqbqgigb5tgoalsplhu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATwKVbKzpD3fgpuqg7qZuGllaVbj28tQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142391933782-jsofeg83qf904mqbqgigb5tgoalsplhu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
