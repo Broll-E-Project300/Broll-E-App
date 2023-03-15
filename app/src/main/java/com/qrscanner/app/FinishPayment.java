@@ -54,6 +54,9 @@ public class FinishPayment extends AppCompatActivity {
         payradio_btn = findViewById(R.id.payradio);
         pay_btn = findViewById(R.id.payprice_btn);
 
+        Intent intent = getIntent();
+        String umbID_scaned = intent.getStringExtra("umbkey");
+
         PaymentConfiguration.init(this,Publishable_Key);
         paymentSheet=new PaymentSheet(this, paymentSheetResult -> {
 

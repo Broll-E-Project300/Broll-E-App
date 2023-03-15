@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -58,6 +59,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.protobuf.DescriptorProtos;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 import com.qrscanner.app.databinding.ActivityMaps2Binding;
 
 import java.util.List;
@@ -270,13 +273,25 @@ public class MapFragment extends Fragment {
             }
         });
 
+        viewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+        Button getumbscan = dialog.findViewById(R.id.getUmb_btn);
+        getumbscan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.setData(check);
+                dialog.dismiss();
+            }
+        });
+
 
     }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+       // viewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
 
        /* Button test = view.findViewById(R.id.testing);
         test.setOnClickListener(new View.OnClickListener() {

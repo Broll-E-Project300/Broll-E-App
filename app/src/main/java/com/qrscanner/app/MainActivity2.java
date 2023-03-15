@@ -1,5 +1,6 @@
 package com.qrscanner.app;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -27,17 +28,29 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -51,6 +64,8 @@ public class MainActivity2 extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     LocationRequest locationRequest;
@@ -89,22 +104,6 @@ public class MainActivity2 extends AppCompatActivity {
 
         }
 
-        //Location perission check
-
-        gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail().build();
-
-        gsc= GoogleSignIn.getClient(this,gso);
-
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        //Initialize Map fragment
-        Fragment mapf = new MapFragment();
-        //Open fragment
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frame_layout, mapf)
-                .commit();
-
         final  DrawerLayout drawer = findViewById(R.id.drawer_layout);
         menuBtn = findViewById(R.id.menu_btn);
         menuBtn.setOnClickListener(new View.OnClickListener() {
@@ -122,11 +121,12 @@ public class MainActivity2 extends AppCompatActivity {
         //VIEW MODEL LOGIC
         //Checks ItemViewModel class for change in variable to know when button was clicked
         //This will assist in detecting when an umbrella icon was selected and open the bottomDialog
-      /*  viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
 
         viewModel.getSelectedItem().observe(this, item->{
-            showDockDialog();
-        });*/
+            Toast.makeText(this, "Works", Toast.LENGTH_SHORT).show();
+            scancode();
+        });
 
         //NavView LOGIC
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -154,6 +154,7 @@ public class MainActivity2 extends AppCompatActivity {
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                scancode();
                 startActivity(new Intent(getApplicationContext(), FinishPayment.class));
             }
         });
@@ -168,6 +169,61 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     }
+
+    private void scancode() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Volume up to turn flash on");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barLauncher.launch(options);
+    }
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result ->{
+        if(result.getContents() != null)
+        {
+            //Start payment activity, send umbrella id
+            String umbID = result.getContents().toString();
+            Intent intent = new Intent(getApplicationContext(), FinishPayment.class);
+            intent.putExtra("umbkey", umbID);
+            startActivity(intent);
+
+            /*androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getApplicationContext());
+            builder.setTitle("Result");
+            builder.setMessage(result.getContents());
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+
+                    Map<String, Object> umbrellaSession = new HashMap<>();
+                    umbrellaSession.put("dateCreated","" + date);
+                    umbrellaSession.put("paymentStatus","Pending");
+                    umbrellaSession.put("UmbrellaID","" + result.getContents());
+                    umbrellaSession.put("userID","Alex");
+
+/*                    db.collection("umbrellaSession").document("J8mc1h1HuxtfG6275JQG")
+                            .set(umbrellaSession)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+
+                                }
+                            });
+
+                    db.collection("umbrellaSession")
+                            .add(umbrellaSession)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+
+                                }
+                            });
+
+                }
+            }).show();*/
+        }
+    });
 
     private void openplans(MainActivity2 mainActivity2) {
         startActivity(new Intent(getApplicationContext(), Plans.class));
