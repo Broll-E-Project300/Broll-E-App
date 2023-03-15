@@ -267,6 +267,15 @@ public class MapFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+        viewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+        Button getumb_button = dialog.findViewById(R.id.getUmb_btn);
+        getumb_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.setData(check);
+                dialog.dismiss();
+            }
+        });
 
 
     }

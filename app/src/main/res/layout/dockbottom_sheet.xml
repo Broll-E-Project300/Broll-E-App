@@ -142,13 +142,15 @@
             android:id="@+id/getUmb_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo_bhai"
             android:layout_gravity="center"
             android:background="@drawable/btn_scan"
             android:paddingLeft="60dp"
             android:paddingTop="10dp"
             android:paddingRight="70dp"
             android:paddingBottom="10dp"
-            android:text="Get Umbrella"
+            android:text="Scan Umbrella"
+            android:textAllCaps="false"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@+id/gridshow" />
     </LinearLayout>

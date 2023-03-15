@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -19,6 +20,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.stripe.android.paymentsheet.PaymentSheetResult;
@@ -26,7 +32,10 @@ import com.stripe.android.paymentsheet.PaymentSheetResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class FinishPayment extends AppCompatActivity {
@@ -34,6 +43,11 @@ public class FinishPayment extends AppCompatActivity {
     Button pay_btn;
     Boolean selected = false;
     String price, amount;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
+
 
     PaymentSheet paymentSheet;
     String paymentIntentClientSecret;
@@ -45,17 +59,21 @@ public class FinishPayment extends AppCompatActivity {
     String customerId;
     String EphericalKey;
     String ClientSecret;
+    String umbID_scaned, userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish_payment);
 
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        userID = user.getUid();
         payradio_btn = findViewById(R.id.payradio);
         pay_btn = findViewById(R.id.payprice_btn);
+        ImageButton pay_backbutton = findViewById(R.id.pay_backbutton);
 
         Intent intent = getIntent();
-        String umbID_scaned = intent.getStringExtra("umbkey");
+        umbID_scaned = intent.getStringExtra("message_key");
 
         PaymentConfiguration.init(this,Publishable_Key);
         paymentSheet=new PaymentSheet(this, paymentSheetResult -> {
@@ -65,6 +83,13 @@ public class FinishPayment extends AppCompatActivity {
 
         });
 
+        pay_backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                finish();
+            }
+        });
         payradio_btn.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedid) {
@@ -102,7 +127,7 @@ public class FinishPayment extends AppCompatActivity {
                         public void run() {
                             PaymentFlow();
                         }
-                    },1000);
+                    },2000);
 
                 }else{
 
@@ -150,9 +175,26 @@ public class FinishPayment extends AppCompatActivity {
     private void onPaymentResult(PaymentSheetResult paymentSheetResult) {
 
         if(paymentSheetResult instanceof PaymentSheetResult.Completed){
-            Toast.makeText(this, "Payment Approved", Toast.LENGTH_SHORT).show();
-        }
 
+            Map<String, Object> umbrellaSession = new HashMap<>();
+            umbrellaSession.put("dateCreated","" + date);
+            umbrellaSession.put("paymentStatus","Paid");
+            umbrellaSession.put("UmbrellaID","" + umbID_scaned);
+            umbrellaSession.put("userID",userID);
+            umbrellaSession.put("StripeCustomerID", customerId);
+
+            db.collection("umbrellaSession")
+                    .add(umbrellaSession)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            startActivity(new Intent(getApplicationContext(), SuccessfulPay.class));
+                            finish();
+                        }
+                    });
+
+            //Toast.makeText(this, "Payment Approved", Toast.LENGTH_SHORT).show();
+        }
     }
     private void getEphericalkey(String customerId, String amount) {
 
