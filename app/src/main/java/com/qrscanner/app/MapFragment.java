@@ -220,6 +220,13 @@ public class MapFragment extends Fragment {
                                                 }
                                             }
                                         });
+                                ImageButton location = view.findViewById(R.id.location_btn);
+                                location.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userlocale,15));
+                                    }
+                                });
 
                             }
                         });
