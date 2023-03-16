@@ -57,30 +57,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.protobuf.DescriptorProtos;
-import com.qrscanner.app.databinding.ActivityMaps2Binding;
 
 import java.util.List;
 
 public class MapFragment extends Fragment {
-    Button button1;
     Integer check = 0;
     ItemViewModel viewModel;
-    int umbrellaNumber, available = 6;
+    int available = 6;
     Location currentLocation;
     String ulat, ulong;
     FusedLocationProviderClient fusedLocationProviderClient;
-    private final static int REQUEST_CODE = 101;
 
     private GoogleMap mMap;
-    private ActivityMaps2Binding binding;
     private FirebaseFirestore db;
-    private LocationRequest locationRequest;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         // Initialize view
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
@@ -98,7 +91,6 @@ public class MapFragment extends Fragment {
                             currentLocation = location;
                             ulat = String.valueOf(location.getLatitude());
                             ulong = String.valueOf(location.getLongitude());
-
                         }
                         //Initiate googleMap
                         SupportMapFragment supportMapFragment = (SupportMapFragment)
@@ -111,12 +103,8 @@ public class MapFragment extends Fragment {
                                 mMap = googleMap;
                                 mMap.setMyLocationEnabled(true);
                                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                                //Toast.makeText(getActivity(), ulat, Toast.LENGTH_SHORT).show();
                                 LatLng userlocale = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-                                //mMap.addMarker(new MarkerOptions().position(userlocale));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userlocale,15));
-
-
 
                                 db.collection("testKiosks")
                                         .whereEqualTo("Status","Online")
@@ -129,24 +117,17 @@ public class MapFragment extends Fragment {
 
                                                         List<String> list = (List<String>) document.get("UmbrellasArray");
                                                         int NoofUmb = list.size();
-                                                        //String Umbrella1 = list.get(0);
-
                                                         int availableSpaces = available - NoofUmb;
-
                                                         String LocationLat = document.getString("LocationLat");
                                                         String LocationLng = document.getString("LocationLng");
                                                         double LocLat = Double.parseDouble(LocationLat);
                                                         double LocLng = Double.parseDouble(LocationLng);
 
                                                         String LocationName = document.getString("LocationName");
-
                                                         String Status = document.getString("Status");
-
                                                         LatLng Location = new LatLng(LocLat, LocLng);
-
                                                         MarkerOptions marker = new MarkerOptions();
                                                         marker.position(Location);
-
                                                         marker.title(LocationName);
                                                         marker.snippet(String.valueOf(NoofUmb));
                                                         if (NoofUmb == 0) {
@@ -164,8 +145,6 @@ public class MapFragment extends Fragment {
                                                                 return true;
                                                             }
                                                         });
-
-
                                                     }
                                                 }
                                             }
@@ -182,9 +161,7 @@ public class MapFragment extends Fragment {
 
                                                         List<String> list = (List<String>) document.get("UmbrellasArray");
                                                         int NoofUmb = list.size();
-
                                                         int availableSpaces = 6 - NoofUmb;
-
                                                         String LocationLat = document.getString("LocationLat");
                                                         String LocationLng = document.getString("LocationLng");
                                                         double LocLat = Double.parseDouble(LocationLat);
@@ -259,6 +236,7 @@ public class MapFragment extends Fragment {
         TextView umbslots = dialog.findViewById(R.id.umbSlots);
         umbrellas.setText(marker.getSnippet());
         umbslots.setText(String.valueOf(slots));
+
         //Close docksheet
         ImageButton closeds = dialog.findViewById(R.id.docksheetbackbtn);
         closeds.setOnClickListener(new View.OnClickListener() {
@@ -282,18 +260,9 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         viewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
-
-       /* Button test = view.findViewById(R.id.testing);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Changes viewmodel data that MainActivity will detect
-                viewModel.setData(check);
-            }
-        });*/
     }
+
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId)
     {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);

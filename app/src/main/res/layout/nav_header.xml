@@ -30,36 +30,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nav_profileImg"/>
 
-    <!--<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_logo_foreground"
-        android:layout_marginBottom="-9dp"
-        android:layout_marginStart="5dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:textColor="@color/bt_light_gray"
-        android:text="Revolutionary Rain cover"
-        android:layout_marginStart="12dp"
-
-        />-->
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="35dp"
-        android:text="Broll E"
-        android:textSize="60dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="2dp"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:text="Revolutionary Rain cover"
-        android:layout_marginBottom="@dimen/cardview_default_radius"
-        />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

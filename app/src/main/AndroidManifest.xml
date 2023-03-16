@@ -27,13 +27,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Payment"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".FinishPayment"
             android:exported="false">
             <meta-data
@@ -69,21 +62,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".InformationActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".Plans"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".CreditCard"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -118,16 +97,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC4xjcqqSIqt-UrvFLYLIN7CGYqJnxr2Rk" />
 
-        <activity
-            android:name=".MapsActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
         <activity
             android:name=".CaptureAct"
             android:screenOrientation="portrait"

@@ -11,7 +11,6 @@ import android.os.Handler;
 
 public class Splash_activity extends AppCompatActivity {
 
-    private final static int REQUEST_CODE = 101;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

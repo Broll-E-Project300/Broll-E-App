@@ -103,15 +103,6 @@ public class MainActivity2 extends AppCompatActivity {
             }
 
         }
-
-        //Location perission check
-
-        gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail().build();
-
-        gsc= GoogleSignIn.getClient(this,gso);
-
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         //Initialize Map fragment
         Fragment mapf = new MapFragment();
         //Open fragment
@@ -131,18 +122,12 @@ public class MainActivity2 extends AppCompatActivity {
 
             }
         });
-
-
-
         //VIEW MODEL LOGIC
-        //Checks ItemViewModel class for change in variable to know when button was clicked
-        //This will assist in detecting when an umbrella icon was selected and open the bottomDialog
         viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
 
         viewModel.getSelectedItem().observe(this, item->{
             scanCode();
         });
-
         //NavView LOGIC
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -163,8 +148,6 @@ public class MainActivity2 extends AppCompatActivity {
                 }
                 return reply;
             }
-
-
         });
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,16 +156,6 @@ public class MainActivity2 extends AppCompatActivity {
                 scanCode();
             }
         });
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();*/
-
-
     }
     private void scanCode()
     {
@@ -200,36 +173,8 @@ public class MainActivity2 extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), FinishPayment.class);
             intent.putExtra("message_key", umbid);
             startActivity(intent);
-            //startActivity(new Intent(getApplicationContext(),FinishPayment.class));
-            /*androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MainActivity2.this);
-            builder.setTitle("Result");
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-
-                    Map<String, Object> umbrellaSession = new HashMap<>();
-                    umbrellaSession.put("dateCreated","" + date);
-                    umbrellaSession.put("paymentStatus","Pending");
-                    umbrellaSession.put("UmbrellaID","" + result.getContents());
-                    umbrellaSession.put("userID","Alex");
-
-                    db.collection("umbrellaSession")
-                            .add(umbrellaSession)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-
-                                }
-                            });
-
-                }
-            }).show();*/
         }
     });
-
 
     private void openplans(MainActivity2 mainActivity2) {
         startActivity(new Intent(getApplicationContext(), Plans.class));
@@ -242,14 +187,9 @@ public class MainActivity2 extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        firebaseAuth.signOut();
-                        finish();
-                        startActivity(new Intent(getApplicationContext(), Screen_LoginRegister.class));
-                    }
-                });
+                firebaseAuth.signOut();
+                finish();
+                startActivity(new Intent(getApplicationContext(), Screen_LoginRegister.class));
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -261,22 +201,6 @@ public class MainActivity2 extends AppCompatActivity {
         builder.show();
     }
 
-
-    //View model works perfectly though
-    /*private void showDockDialog() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dockbottom_sheet);
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DockbottomAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-
-    }*/
-
-    //Closes nav drawer if back button is pressed. Instead of exiting the activity completely
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)){

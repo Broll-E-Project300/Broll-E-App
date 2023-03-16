@@ -15,25 +15,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<androidx.appcompat.widget.Toolbar
-           android:layout_width="match_parent"
-           android:layout_height="?attr/actionBarSize"
-           android:background="@color/OrangeBrand"
-           android:id="@+id/toolbar"
-           android:theme="@style/ThemeOverlay.AppCompat.Dark"
-           app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-           android:elevation="4dp"/>-->
-        <!-- <Button
-             android:id="@+id/button2"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="150dp"
-             android:drawableLeft="@drawable/ic_scanicon"
-             android:background="@drawable/btn_scan"
-             android:text="Scan"
-             app:layout_constraintBottom_toBottomOf="parent"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="parent" />-->
         <ImageButton
             android:id="@+id/menu_btn"
             android:layout_width="49dp"
@@ -87,7 +68,4 @@
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu"
         app:itemTextAppearance="@style/menu_text_style"/>
-
-
-
 </androidx.drawerlayout.widget.DrawerLayout>

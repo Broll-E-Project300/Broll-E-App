@@ -82,8 +82,6 @@ public class FinishPayment extends AppCompatActivity {
         paymentSheet=new PaymentSheet(this, paymentSheetResult -> {
 
             onPaymentResult(paymentSheetResult);
-
-
         });
 
         pay_backbutton.setOnClickListener(new View.OnClickListener() {
@@ -115,8 +113,6 @@ public class FinishPayment extends AppCompatActivity {
                         break;
                 }
                 amount = price;
-
-                //Toast.makeText(FinishPayment.this, amount, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -124,7 +120,6 @@ public class FinishPayment extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (selected!=false){
-                    //Toast.makeText(FinishPayment.this, "OSHEEEEEE "+price, Toast.LENGTH_SHORT).show();
                     payloading.setVisibility(View.VISIBLE);
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -134,8 +129,6 @@ public class FinishPayment extends AppCompatActivity {
                         }
 
                     },2000);
-
-
                 }else{
 
                }
@@ -153,8 +146,6 @@ public class FinishPayment extends AppCompatActivity {
 
                             JSONObject object = new JSONObject(response);
                             customerId = object.getString("id");
-                            //Toast.makeText(getApplicationContext(), customerId, Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(FinishPayment.this, amount, Toast.LENGTH_SHORT).show();
                             getEphericalkey(customerId,amount);
 
                         } catch (JSONException e) {
@@ -200,8 +191,6 @@ public class FinishPayment extends AppCompatActivity {
                             finish();
                         }
                     });
-
-            //Toast.makeText(this, "Payment Approved", Toast.LENGTH_SHORT).show();
         }
     }
     private void getEphericalkey(String customerId, String amount) {
@@ -214,8 +203,6 @@ public class FinishPayment extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             EphericalKey = object.getString("id");
-                            //Toast.makeText(getApplicationContext(), EphericalKey, Toast.LENGTH_SHORT).show();
-
                             getClientSecret(customerId, EphericalKey, amount);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -234,8 +221,6 @@ public class FinishPayment extends AppCompatActivity {
                 header.put("Stripe-Version", "2022-11-15" );
                 return header;
             }
-
-
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params=new HashMap<>();
@@ -243,7 +228,6 @@ public class FinishPayment extends AppCompatActivity {
                 return params;
             }
         };
-
         RequestQueue requestQueue = Volley.newRequestQueue(
                 getApplicationContext() );
         requestQueue.add(stringRequest);
@@ -259,10 +243,6 @@ public class FinishPayment extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             ClientSecret = object.getString("client_secret");
-                            //Toast.makeText(getApplicationContext(), ClientSecret, Toast.LENGTH_SHORT).show();
-
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -281,8 +261,6 @@ public class FinishPayment extends AppCompatActivity {
                 return header;
             }
 
-
-            String money = "080";
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params=new HashMap<>();
@@ -299,8 +277,6 @@ public class FinishPayment extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
     private void PaymentFlow() {
-
-
         paymentSheet.presentWithPaymentIntent(
                 ClientSecret, new PaymentSheet.Configuration("Broll-E",
                         new PaymentSheet.CustomerConfiguration(
@@ -308,7 +284,5 @@ public class FinishPayment extends AppCompatActivity {
                                 EphericalKey
                         ))
         );
-
     }
-
 }

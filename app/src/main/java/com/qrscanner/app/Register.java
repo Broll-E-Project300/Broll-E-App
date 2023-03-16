@@ -29,15 +29,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class Register extends AppCompatActivity {
-    //Variables
     EditText mConfirmpassword, mEmail, mPassword;
     Button mRegisterBtn;
     TextView mLoginBtn;
     ProgressBar mProgress;
     FirebaseAuth firebaseAuth;
-    ImageView google_img;
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,14 +45,12 @@ public class Register extends AppCompatActivity {
         AnalyticsController analytics = new AnalyticsController();
         analytics.SendScreenNameToAnalytics("Register Activity");
 
-        //Binding the created variables to their respective UI ID's
         mEmail = findViewById(R.id.Email);
         mProgress = findViewById(R.id.progressBar);
         mPassword = findViewById(R.id.password);
         mRegisterBtn = findViewById(R.id.MainregisterBtn);
         mLoginBtn = findViewById(R.id.accountlogin);
         mConfirmpassword = findViewById(R.id.confirmpassword);
-
         firebaseAuth  = FirebaseAuth.getInstance();
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,9 +60,7 @@ public class Register extends AppCompatActivity {
                 String user_email = mEmail.getText().toString().trim();
                 String user_password = mPassword.getText().toString().trim();
                 String user_confirm = mConfirmpassword.getText().toString().trim();
-
-
-                //Checking if the email field is empty
+               //Input field logic
                 if (TextUtils.isEmpty(user_email)){
                     mEmail.setError("Email address is required.");
                     return;
@@ -86,8 +78,6 @@ public class Register extends AppCompatActivity {
 
                 }
 
-
-                //Firebase method to add the user to the firebase database
                 firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
