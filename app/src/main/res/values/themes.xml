@@ -14,7 +14,7 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/OrangeBrand</item>
         <!-- Customize your theme here. -->
     </style>
 

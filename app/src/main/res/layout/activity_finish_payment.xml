@@ -114,5 +114,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/btn_scan"/>
 
+    <ProgressBar
+        android:id="@+id/pay_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/payprice_btn"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class FinishPayment extends AppCompatActivity {
     Button pay_btn;
     Boolean selected = false;
     String price, amount;
+    ProgressBar payloading;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -71,6 +73,7 @@ public class FinishPayment extends AppCompatActivity {
         payradio_btn = findViewById(R.id.payradio);
         pay_btn = findViewById(R.id.payprice_btn);
         ImageButton pay_backbutton = findViewById(R.id.pay_backbutton);
+        payloading = findViewById(R.id.pay_progressbar);
 
         Intent intent = getIntent();
         umbID_scaned = intent.getStringExtra("message_key");
@@ -116,18 +119,22 @@ public class FinishPayment extends AppCompatActivity {
                 //Toast.makeText(FinishPayment.this, amount, Toast.LENGTH_SHORT).show();
             }
         });
+
         pay_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (selected!=false){
                     //Toast.makeText(FinishPayment.this, "OSHEEEEEE "+price, Toast.LENGTH_SHORT).show();
-
+                    payloading.setVisibility(View.VISIBLE);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             PaymentFlow();
+                            payloading.setVisibility(View.GONE);
                         }
+
                     },2000);
+
 
                 }else{
 
@@ -143,6 +150,7 @@ public class FinishPayment extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+
                             JSONObject object = new JSONObject(response);
                             customerId = object.getString("id");
                             //Toast.makeText(getApplicationContext(), customerId, Toast.LENGTH_SHORT).show();
@@ -300,6 +308,7 @@ public class FinishPayment extends AppCompatActivity {
                                 EphericalKey
                         ))
         );
+
     }
 
 }
