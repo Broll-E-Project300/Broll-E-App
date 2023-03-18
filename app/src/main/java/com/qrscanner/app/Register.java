@@ -76,16 +76,17 @@ public class Register extends AppCompatActivity {
                     mPassword.setError("Passwords must match");
                     return;
                 }else {
-
+                    mProgress.setVisibility(View.VISIBLE);
 
                 }
-                mProgress.setVisibility(View.VISIBLE);
+
                 firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()){
                             startActivity(new Intent(Register.this, MainActivity2.class));
+                            mProgress.setVisibility(View.GONE);
                             finish();
                         }else {
                             mProgress.setVisibility(View.GONE);
