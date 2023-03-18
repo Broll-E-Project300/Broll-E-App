@@ -46,7 +46,7 @@ public class Register extends AppCompatActivity {
         analytics.SendScreenNameToAnalytics("Register Activity");
 
         mEmail = findViewById(R.id.Email);
-        mProgress = findViewById(R.id.progressBar);
+        mProgress = findViewById(R.id.progressBarReg);
         mPassword = findViewById(R.id.password);
         mRegisterBtn = findViewById(R.id.MainregisterBtn);
         mLoginBtn = findViewById(R.id.accountlogin);
@@ -56,6 +56,7 @@ public class Register extends AppCompatActivity {
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 String user_email = mEmail.getText().toString().trim();
                 String user_password = mPassword.getText().toString().trim();
@@ -76,12 +77,13 @@ public class Register extends AppCompatActivity {
                     return;
                 }else {
 
-                }
 
+                }
+                mProgress.setVisibility(View.VISIBLE);
                 firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        mProgress.setVisibility(View.VISIBLE);
+
                         if (task.isSuccessful()){
                             startActivity(new Intent(Register.this, MainActivity2.class));
                             finish();
